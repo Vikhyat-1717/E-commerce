@@ -4,21 +4,21 @@ const products = [
         id: 1,
         name: "Amul Fresh Milk",
         price: 25.00,
-        image: "images/products/milk.jpg",
+        image: "dairy.png",
         description: "Fresh and nutritious milk delivered daily"
     },
     {
         id: 2,
         name: "Amul Butter",
         price: 50.00,
-        image: "images/products/butter.jpg",
+        image: "dairy.png",
         description: "Creamy and delicious butter"
     },
     {
         id: 3,
         name: "Amul Cheese",
         price: 100.00,
-        image: "images/products/cheese.jpg",
+        image: "dairy.png",
         description: "Rich and flavorful cheese"
     }
 ];
