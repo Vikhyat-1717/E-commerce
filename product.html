@@ -107,53 +107,101 @@
                 name: "Amul Gold Milk",
                 price: 60,
                 description: "Pure and fresh milk, rich in calcium and protein. Perfect for daily consumption and making various dairy products.",
-                image: "https://www.amul.com/images/product-images/amul-gold-milk.png"
+                image: "images/products/amul-gold-milk.jpg"
             },
             {
                 id: 2,
                 name: "Amul Butter",
                 price: 50,
                 description: "Pure and creamy butter, perfect for cooking and baking. Made from the finest quality milk.",
-                image: "https://www.amul.com/images/product-images/amul-butter.png"
+                image: "images/products/amul-butter.jpg"
             },
             {
                 id: 3,
                 name: "Amul Cheese",
                 price: 100,
                 description: "Rich and creamy cheese, great for sandwiches and snacks. Made with traditional methods.",
-                image: "https://www.amul.com/images/product-images/amul-cheese.png"
+                image: "images/products/amul-cheese.jpg"
             },
             {
                 id: 4,
                 name: "Amul Ghee",
                 price: 500,
                 description: "Pure desi ghee, perfect for traditional cooking. Made from the finest quality butter.",
-                image: "https://www.amul.com/images/product-images/amul-ghee.png"
+                image: "images/products/amul-ghee.jpg"
             },
             {
                 id: 5,
                 name: "Amul Masti Dahi",
                 price: 40,
                 description: "Fresh and creamy curd, great for digestion. Made from pure milk with live cultures.",
-                image: "https://www.amul.com/images/product-images/amul-dahi.png"
+                image: "images/products/amul-dahi.jpg"
             },
             {
                 id: 6,
                 name: "Amul Paneer",
                 price: 80,
                 description: "Fresh and soft paneer, perfect for Indian dishes. Made from pure milk.",
-                image: "https://www.amul.com/images/product-images/amul-paneer.png"
+                image: "images/products/amul-paneer.jpg"
+            },
+            {
+                id: 7,
+                name: "Amul Shrikhand",
+                price: 120,
+                description: "Sweet and creamy dessert, perfect for festivals. Made with traditional methods.",
+                image: "images/products/amul-shrikhand.jpg"
+            },
+            {
+                id: 8,
+                name: "Amul Lassi",
+                price: 45,
+                description: "Refreshing yogurt drink, great for summers. Made with fresh curd and natural flavors.",
+                image: "images/products/amul-lassi.jpg"
+            },
+            {
+                id: 9,
+                name: "Amul Ice Cream",
+                price: 150,
+                description: "Creamy and delicious ice cream in various flavors. Made with real milk and natural ingredients.",
+                image: "images/products/amul-icecream.jpg"
+            },
+            {
+                id: 10,
+                name: "Amul Chocolates",
+                price: 200,
+                description: "Rich and creamy chocolates, perfect for gifting. Made with real milk and cocoa.",
+                image: "images/products/amul-chocolate.jpg"
+            },
+            {
+                id: 11,
+                name: "Amul Fresh Cream",
+                price: 90,
+                description: "Rich and thick cream for desserts and cooking. Made from pure milk.",
+                image: "images/products/amul-cream.jpg"
+            },
+            {
+                id: 12,
+                name: "Amul Milk Powder",
+                price: 250,
+                description: "Instant milk powder, great for emergencies. Made from pure milk with no additives.",
+                image: "images/products/amul-milk-powder.jpg"
             }
         ];
 
-        // Display product details
+        // Display product details with optimized image loading
         function displayProductDetails() {
             const product = products.find(p => p.id === productId);
             if (product) {
                 document.getElementById('productDetails').innerHTML = `
                     <div class="product-details-grid">
                         <div>
-                            <img src="${product.image}" alt="${product.name}" class="product-image-large" onerror="this.src='https://via.placeholder.com/600x400?text=${product.name}'">
+                            <img 
+                                src="${product.image}" 
+                                alt="${product.name}" 
+                                class="product-image-large" 
+                                loading="lazy"
+                                onerror="this.src='images/products/placeholder.jpg'"
+                            >
                         </div>
                         <div class="product-info">
                             <h1 class="product-title-large">${product.name}</h1>

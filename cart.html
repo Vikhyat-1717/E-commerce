@@ -4,12 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - Amul Dairy</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        .cart-page {
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #ff6b6b;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --background-color: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .cart-container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 2rem;
+            padding: 0 1rem;
         }
 
         .cart-header {
@@ -34,10 +107,10 @@
         }
 
         .continue-shopping:hover {
-            background-color: var(--hover-color);
+            background-color: var(--accent-color);
         }
 
-        .cart-items-container {
+        .cart-items {
             background-color: var(--secondary-color);
             border-radius: 10px;
             padding: 2rem;
@@ -50,7 +123,7 @@
             gap: 1rem;
             align-items: center;
             padding: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .cart-item:last-child {
@@ -62,7 +135,7 @@
             height: 100px;
             object-fit: contain;
             border-radius: 5px;
-            background-color: #f8f8f8;
+            background-color: var(--background-color);
             padding: 0.5rem;
         }
 
@@ -80,6 +153,7 @@
 
         .cart-item-price {
             color: var(--accent-color);
+            font-weight: 600;
         }
 
         .quantity-controls {
@@ -106,6 +180,15 @@
             color: var(--secondary-color);
         }
 
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
         .cart-summary {
             margin-top: 2rem;
             padding: 2rem;
@@ -119,7 +202,7 @@
             justify-content: space-between;
             margin-bottom: 1rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .summary-row:last-child {
@@ -143,7 +226,7 @@
         }
 
         .checkout-btn:hover {
-            background-color: var(--hover-color);
+            background-color: var(--accent-color);
         }
 
         .empty-cart {
@@ -175,6 +258,11 @@
             .quantity-controls {
                 grid-column: 2;
             }
+
+            .remove-item {
+                grid-column: 2;
+                justify-self: end;
+            }
         }
     </style>
 </head>
@@ -188,10 +276,12 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
-        <div class="cart-icon" id="cartIcon">🛒 <span id="cartCount">0</span></div>
+        <div class="cart-icon">
+            🛒 <span class="cart-count" id="cartCount">0</span>
+        </div>
     </header>
 
-    <main class="cart-page">
+    <main class="cart-container">
         <div class="cart-header">
             <h1 class="cart-title">Your Shopping Cart</h1>
             <a href="index.html" class="continue-shopping">Continue Shopping</a>
@@ -203,6 +293,13 @@
     </main>
 
     <script>
+        // Sample products data
+        const products = [
+            { id: 1, name: "Amul Milk", price: 25, image: "images/products/Dairy Products 1.webp" },
+            { id: 2, name: "Amul Butter", price: 50, image: "images/products/Dairy Products 1.webp" },
+            { id: 3, name: "Amul Cheese", price: 100, image: "images/products/Dairy Products 1.webp" }
+        ];
+
         // Get cart from localStorage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -230,22 +327,30 @@
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
             cartContent.innerHTML = `
-                <div class="cart-items-container">
-                    ${cart.map(item => `
-                        <div class="cart-item">
-                            <img src="https://via.placeholder.com/100x100?text=${item.name}" alt="${item.name}" class="cart-item-image">
-                            <div class="cart-item-details">
-                                <div class="cart-item-name">${item.name}</div>
-                                <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                <div class="cart-items">
+                    ${cart.map(item => {
+                        const product = products.find(p => p.id === item.id);
+                        return `
+                            <div class="cart-item">
+                                <img 
+                                    src="${product.image}" 
+                                    alt="${item.name}" 
+                                    class="cart-item-image" 
+                                    loading="lazy"
+                                >
+                                <div class="cart-item-details">
+                                    <div class="cart-item-name">${item.name}</div>
+                                    <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                                </div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                                </div>
+                                <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
                             </div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
-                                <span>${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
-                            </div>
-                            <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
-                        </div>
-                    `).join('')}
+                        `;
+                    }).join('')}
                 </div>
 
                 <div class="cart-summary">
