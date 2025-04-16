@@ -1,4 +1,5 @@
 // Sample product data
+/* Updated product data with improved structure */
 const products = [
     {
         id: 1,
