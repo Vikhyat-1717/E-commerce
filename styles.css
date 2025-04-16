@@ -5,10 +5,12 @@
 }
 
 :root {
-    --primary-color: #ed1c24;
+    --primary-color: #000000;
     --secondary-color: #ffffff;
     --text-color: #333333;
     --background-color: #f5f5f5;
+    --accent-color: #666666;
+    --hover-color: #444444;
 }
 
 body {
@@ -51,7 +53,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #ffd700;
+    color: var(--accent-color);
 }
 
 .cart-icon {
@@ -111,7 +113,7 @@ main {
 
 .product-description {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--accent-color);
     margin-bottom: 1rem;
     min-height: 40px;
 }
@@ -140,7 +142,7 @@ main {
 }
 
 .add-to-cart:hover {
-    background-color: #c5161c;
+    background-color: var(--hover-color);
 }
 
 .view-details {
@@ -217,7 +219,7 @@ main {
 }
 
 .close-cart:hover {
-    background-color: #c5161c;
+    background-color: var(--hover-color);
 }
 
 .notification {
