@@ -1,5 +1,4 @@
-# Git ignore file for e-commerce project
 .DS_Store
 node_modules/
-.env
-*.log 
+*.log
+.env 

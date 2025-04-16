@@ -3,41 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amul Dairy Store</title>
+    <title>Amul Dairy Products</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Updated index.html with improved structure -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="logo">Amul Dairy</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </nav>
-        <div class="cart-icon" id="cartIcon">🛒 <span id="cartCount">0</span></div>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>Amul Dairy</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="products.html">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-cart">
+            <a href="cart.html" class="cart-icon">
+                🛒 <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Fresh Dairy Products</h1>
+            <p>Quality dairy products delivered to your doorstep</p>
+            <a href="products.html" class="cta-button">Shop Now</a>
+        </div>
     </header>
 
     <main>
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be dynamically added here -->
-        </div>
+        <section class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid" id="featuredProducts">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </section>
+
+        <section class="why-us">
+            <h2>Why Choose Us?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🥛</div>
+                    <h3>Fresh Products</h3>
+                    <p>Daily fresh dairy products from our farms</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Same day delivery for your convenience</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💯</div>
+                    <h3>Quality Assured</h3>
+                    <p>100% quality guarantee on all products</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <h2>Your Cart</h2>
-            <div class="cart-items" id="cartItems">
-                <!-- Cart items will be dynamically added here -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@amuldairy.com</p>
+                <p>Phone: +91 1234567890</p>
             </div>
-            <div class="cart-total">
-                <p>Total: $<span id="cartTotal">0.00</span></p>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="products.html">Products</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
             </div>
-            <button class="close-cart" id="closeCart">Close</button>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Amul Dairy. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
