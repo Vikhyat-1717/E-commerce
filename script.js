@@ -2,24 +2,24 @@
 const products = [
     {
         id: 1,
-        name: "Amul Fresh Milk",
-        price: 25.00,
-        image: "dairy.png",
-        description: "Fresh and nutritious milk delivered daily"
+        name: "Premium Laptop",
+        price: 999.99,
+        image: "images/products/laptop.png",
+        description: "High-performance laptop for professionals"
     },
     {
         id: 2,
-        name: "Amul Butter",
-        price: 50.00,
-        image: "dairy.png",
-        description: "Creamy and delicious butter"
+        name: "Wireless Headphones",
+        price: 199.99,
+        image: "images/products/Headphones.png",
+        description: "Noise-cancelling wireless headphones"
     },
     {
         id: 3,
-        name: "Amul Cheese",
-        price: 100.00,
-        image: "dairy.png",
-        description: "Rich and flavorful cheese"
+        name: "Smart Watch",
+        price: 299.99,
+        image: "images/products/smartwatch.png",
+        description: "Feature-rich smartwatch with health tracking"
     }
 ];
 
@@ -49,7 +49,8 @@ function addToCart(productId) {
             id: product.id,
             name: product.name,
             price: product.price,
-            quantity: 1
+            quantity: 1,
+            image: product.image
         });
     }
 
@@ -85,11 +86,11 @@ function loadFeaturedProducts() {
 
     featuredProducts.innerHTML = products.map(product => `
         <div class="product-card">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='images/products/placeholder.jpg'">
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
-                <div class="product-price">₹${product.price.toFixed(2)}</div>
+                <div class="product-price">$${product.price.toFixed(2)}</div>
                 <button onclick="addToCart(${product.id})" class="add-to-cart">
                     Add to Cart
                 </button>
@@ -105,11 +106,11 @@ function loadAllProducts() {
 
     productsGrid.innerHTML = products.map(product => `
         <div class="product-card">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='images/products/placeholder.jpg'">
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
-                <div class="product-price">₹${product.price.toFixed(2)}</div>
+                <div class="product-price">$${product.price.toFixed(2)}</div>
                 <button onclick="addToCart(${product.id})" class="add-to-cart">
                     Add to Cart
                 </button>
