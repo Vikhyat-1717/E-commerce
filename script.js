@@ -1,41 +1,46 @@
 // Sample product data
-/* Updated product data with improved structure */
 const products = [
     {
         id: 1,
-        name: "Amul Milk",
+        name: "Amul Gold Milk",
         price: 60,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Pure and fresh milk, rich in calcium and protein",
+        image: "https://www.amul.com/images/product-images/amul-gold-milk.png"
     },
     {
         id: 2,
         name: "Amul Butter",
         price: 50,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Pure and creamy butter, perfect for cooking and baking",
+        image: "https://www.amul.com/images/product-images/amul-butter.png"
     },
     {
         id: 3,
         name: "Amul Cheese",
         price: 100,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Rich and creamy cheese, great for sandwiches and snacks",
+        image: "https://www.amul.com/images/product-images/amul-cheese.png"
     },
     {
         id: 4,
         name: "Amul Ghee",
         price: 500,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Pure desi ghee, perfect for traditional cooking",
+        image: "https://www.amul.com/images/product-images/amul-ghee.png"
     },
     {
         id: 5,
-        name: "Amul Curd",
+        name: "Amul Masti Dahi",
         price: 40,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Fresh and creamy curd, great for digestion",
+        image: "https://www.amul.com/images/product-images/amul-dahi.png"
     },
     {
         id: 6,
         name: "Amul Paneer",
         price: 80,
-        image: "https://m.media-amazon.com/images/I/71Qx5Q6QZQL._AC_UF1000,1000_QL80_.jpg"
+        description: "Fresh and soft paneer, perfect for Indian dishes",
+        image: "https://www.amul.com/images/product-images/amul-paneer.png"
     }
 ];
 
@@ -55,12 +60,22 @@ const closeCart = document.getElementById('closeCart');
 function displayProducts() {
     productsGrid.innerHTML = products.map(product => `
         <div class="product-card">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200?text=${product.name}'">
             <h3 class="product-title">${product.name}</h3>
+            <p class="product-description">${product.description}</p>
             <p class="product-price">₹${product.price.toFixed(2)}</p>
             <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+            <button class="view-details" onclick="viewProductDetails(${product.id})">View Details</button>
         </div>
     `).join('');
+}
+
+// View product details
+function viewProductDetails(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        window.location.href = `product.html?id=${productId}`;
+    }
 }
 
 // Add to cart
@@ -80,6 +95,20 @@ function addToCart(productId) {
     }
 
     updateCart();
+    // Show success message
+    showNotification(`${product.name} added to cart!`);
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Update cart display
@@ -93,12 +122,19 @@ function updateCart() {
         <div class="cart-item">
             <span>${item.name} x${item.quantity}</span>
             <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+            <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
         </div>
     `).join('');
 
     // Update total
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     cartTotal.textContent = total.toFixed(2);
+}
+
+// Remove from cart
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCart();
 }
 
 // Event listeners
